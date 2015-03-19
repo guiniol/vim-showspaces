@@ -13,12 +13,8 @@ function s:showSpaces()
 endfunction
 
 function g:ToggleShowSpaces()
-	if exists("b:showSpaces")
-		if b:showSpaces == 1
-			let b:showSpaces = 0
-		else
-			let b:showSpaces = 1
-		endif
+	if exists("b:showSpaces") && b:showSpaces == 1
+		let b:showSpaces = 0
 	else
 		let b:showSpaces = 1
 	endif
