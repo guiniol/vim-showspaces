@@ -11,8 +11,13 @@ endif
 function s:showSpaces()
 	if exists("b:showSpaces") && b:showSpaces == 1
 		set conceallevel=1
-		syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
-		execute "hi! link Conceal " . g:showSpacesColor
+		if exists("g:showSpacesNoConceal") && g:showSpacesNoConceal == 1
+			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= /
+			execute "hi! link MoreSpacesAtBeginning " . g:showSpacesColor
+		else
+			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
+			execute "hi! link Conceal " . g:showSpacesColor
+		endif
 	else
 		silent! syn clear MoreSpacesAtBeginning
 	endif
