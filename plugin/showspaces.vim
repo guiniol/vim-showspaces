@@ -6,11 +6,10 @@ function s:showSpaces()
 	if exists("b:showSpaces")
 		if b:showSpaces == 1
 			set conceallevel=1
-			" Rules for files without existing syntax file
 			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
-			" Rules for files with an an existing syntax file
-			autocmd Syntax * syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
 			hi! link Conceal ErrorMsg
+		else
+			silent! syn clear MoreSpacesAtBeginning
 		endif
 	endif
 endfunction
