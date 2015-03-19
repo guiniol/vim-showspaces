@@ -14,5 +14,18 @@ function s:showSpaces()
 	endif
 endfunction
 
+function g:ToggleShowSpaces()
+	if exists("b:showSpaces")
+		if b:showSpaces == 1
+			let b:showSpaces = 0
+		else
+			let b:showSpaces = 1
+		endif
+	else
+		let b:showSpaces = 1
+	endif
+	call s:showSpaces()
+endfunction
+
 autocmd BufEnter * :call s:showSpaces()
 
