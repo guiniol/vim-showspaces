@@ -12,10 +12,8 @@ endif
 if s:showSpaces == 1
 	set conceallevel=1
 	" Rules for files without existing syntax file
-	syn match SpacesAtBeginning /^\s\+/
-	syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / contained conceal cchar=· containedin=SpacesAtBeginning
+	syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
 	" Rules for files with an an existing syntax file
-	autocmd Syntax * syn match SpacesAtBeginning /^\s\+/
-	autocmd Syntax * syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / contained conceal cchar=· containedin=SpacesAtBeginning
+	autocmd Syntax * syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
 	hi! link Conceal ErrorMsg
 endif
