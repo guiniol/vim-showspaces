@@ -2,11 +2,17 @@
 " mixed with tabs. Only does it if b:showSpaces is set to 1. Uses conceallevel
 " so may mess up plugins using it too.
 
+
+if !exists("g:showSpacesColor")
+	let g:showSpacesColor = "ErrorMsg"
+endif
+
+
 function s:showSpaces()
 	if exists("b:showSpaces") && b:showSpaces == 1
 		set conceallevel=1
 		syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
-		hi! link Conceal ErrorMsg
+		execute "hi! link Conceal " . g:showSpacesColor
 	else
 		silent! syn clear MoreSpacesAtBeginning
 	endif
