@@ -5,12 +5,12 @@
 function s:showSpaces()
 	if exists("b:showSpaces") && b:showSpaces == 1
 		set conceallevel=1
-		if exists("g:showSpacesNoConceal") && g:showSpacesNoConceal == 1
-			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= /
-			hi def link MoreSpacesAtBeginning ErrorMsg
-		else
+		if exists("g:showSpacesConceal") && g:showSpacesConceal == 1
 			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
 			hi def link Conceal ErrorMsg
+		else
+			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= /
+			hi def link MoreSpacesAtBeginning ErrorMsg
 		endif
 	else
 		silent! syn clear MoreSpacesAtBeginning
