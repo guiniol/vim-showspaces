@@ -3,14 +3,12 @@
 " so may mess up plugins using it too.
 
 function s:showSpaces()
-	if exists("b:showSpaces")
-		if b:showSpaces == 1
-			set conceallevel=1
-			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
-			hi! link Conceal ErrorMsg
-		else
-			silent! syn clear MoreSpacesAtBeginning
-		endif
+	if exists("b:showSpaces") && b:showSpaces == 1
+		set conceallevel=1
+		syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
+		hi! link Conceal ErrorMsg
+	else
+		silent! syn clear MoreSpacesAtBeginning
 	endif
 endfunction
 
