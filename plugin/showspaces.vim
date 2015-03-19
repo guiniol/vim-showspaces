@@ -10,7 +10,7 @@ function s:showSpaces()
 			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
 			hi def link Conceal ErrorMsg
 		else
-			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= /
+			syn match MoreSpacesAtBeginning /^\t* \s*/
 			hi def link MoreSpacesAtBeginning ErrorMsg
 		endif
 	else
