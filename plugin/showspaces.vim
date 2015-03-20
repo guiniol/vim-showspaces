@@ -18,7 +18,7 @@ function s:showSpaces()
 	endif
 endfunction
 
-function g:ToggleShowSpaces()
+function ToggleShowSpaces()
 	if get(b:, "showSpaces")
 		let b:showSpaces = 0
 	else
