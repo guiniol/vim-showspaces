@@ -5,7 +5,7 @@
 
 function s:showSpaces()
 	if get(b:, "showSpaces")
-		if get(g:, "showSpacesConceal")
+		if get(b:, "showSpacesConceal")
 			set conceallevel=1
 			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
 			hi def link Conceal ErrorMsg
