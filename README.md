@@ -16,7 +16,7 @@ If you want to only activate it for some filetypes put it in the corresponding
 ftplugin, otherwise in your vimrc.
 
 
-The plugin also gives a g:ToggleShowSpaces() which toggles the highlighting when
+The plugin also gives a ToggleShowSpaces() which toggles the highlighting when
 you call it.
 
 
@@ -31,7 +31,7 @@ when the cursor is on the same line. Also, some other plugin could be using it.
 Enable them in your vimrc:
 
 ```vimL
-let g:showSpacesConceal = 1
+let b:showSpacesConceal = 1
 ```
 
 To change the highlight color, set the color for the MoreSpacesAtBeginning
