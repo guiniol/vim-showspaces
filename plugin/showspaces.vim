@@ -4,8 +4,8 @@
 " g:showSpacesConceal.
 
 function s:showSpaces()
-	if exists("b:showSpaces") && b:showSpaces == 1
-		if exists("g:showSpacesConceal") && g:showSpacesConceal == 1
+	if get(b:, "showSpaces")
+		if get(g:, "showSpacesConceal")
 			set conceallevel=1
 			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
 			hi def link Conceal ErrorMsg
@@ -19,7 +19,7 @@ function s:showSpaces()
 endfunction
 
 function g:ToggleShowSpaces()
-	if exists("b:showSpaces") && b:showSpaces == 1
+	if get(b:, "showSpaces")
 		let b:showSpaces = 0
 	else
 		let b:showSpaces = 1
