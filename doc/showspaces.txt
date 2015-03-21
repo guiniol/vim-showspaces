@@ -1,8 +1,9 @@
-*showspaces.txt*         A highlighter plugin for mixed tabs/spaces indentation
+*showspaces.txt*	For Vim version 7.4	Last change: 2015 March 21
 
 
                            Vim ShowSpaces
 
+A highlighter plugin for mixed tabs/spaces indentation
 
 Authors:	Guillaume Brogi <gui-gui@netcourrier.net>
 		Laurent Georget <laurent@lgeorget.eu>
@@ -50,7 +51,7 @@ Add Bundle 'guiniol/vim-showspaces' to your |vimrc| and then:
 ===============================================================================
 3. USAGE                                                      *ShowSpacesUsage*
 
-Activate the highlighting by setting the b:showSpaces to 1:
+Activate the highlighting by setting the b:showSpaces to 1:      *b:showSpaces*
 >
   let b:showSpaces = 1
 <
@@ -77,21 +78,21 @@ Commands for turning ShowSpaces on and off:
 
 Spaces can be made more visible by setting the variable
 
-  b:showSpacesConceal
+  b:showSpacesConceal                                     *b:showSpacesConceal*
 
-to 1. This changes each space matched at the beginning of a line to the
+to 1. This changes each space matched at the beginning of a line for the
 character '·'.
 
-The highlighting color can be changed. By default, it is set to ErrorMsg. If
+The |:highlight|ing color can be changed. By default, it is set to ErrorMsg. If
 you do not use the conceal feature, use one of the following:
 >
-  hi! link MoreSpacesAtBeginning Error "to set it to the colors of Error
-  hi! MoreSpacesAtBeginning ctermfg=13 ctermbg=2 "to set the colors manually
+  hi link MoreSpacesAtBeginning Error "to set it to the colors of Error
+  hi MoreSpacesAtBeginning ctermfg=13 ctermbg=2 "to set the colors manually
 <
-If you use the conceal mode, you want to change to Conceal group.
+If you use the conceal mode, you want to change the Conceal group:
 >
-  hi! link Conceal Error "to set it to the colors of Error
-  hi! Conceal ctermfg=13 ctermbg=2 "to set the colors manually
+  hi link Conceal Error "to set it to the colors of Error
+  hi Conceal ctermfg=13 ctermbg=2 "to set the colors manually
 <
 ===============================================================================
 6. FAQ                                                          *ShowSpacesFAQ*
