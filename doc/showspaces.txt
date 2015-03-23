@@ -50,7 +50,7 @@ Add Bundle 'guiniol/vim-showspaces' to your |vimrc| and then:
 
 If you use NeoBundle, do the following:
 
-Add NeoBundle 'guiniol/molokai.git' to your vimrc and then:
+Add NeoBundle 'guiniol/vim-showspaces.git' to your vimrc and then:
 
   - either within Vim: :NeoBundleInstall
   - or in your shell: vim +NeoBundleInstall +qall
