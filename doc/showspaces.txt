@@ -48,6 +48,13 @@ Add Bundle 'guiniol/vim-showspaces' to your |vimrc| and then:
   - either within Vim: :BundleInstall
   - or in your shell: vim +BundleInstall +qall
 
+If you use NeoBundle, do the following:
+
+Add NeoBundle 'guiniol/molokai.git' to your vimrc and then:
+
+  - either within Vim: :NeoBundleInstall
+  - or in your shell: vim +NeoBundleInstall +qall
+
 ===============================================================================
 3. USAGE                                                      *ShowSpacesUsage*
 
@@ -101,7 +108,7 @@ a. What is this plugin useful for?
 
   This plugin has been originally designed to deal with an ennoying developper
   working with one of the author on a C project. He had the very bad habit to
-  mix tabs and spaces to indent the code. Helping him to correct this habbit
+  mix tabs and spaces to indent the code. Helping him to correct this habit
   is one use case of this plugin.
 
 b. What happens if I already use |conceal| for something else?
