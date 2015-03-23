@@ -29,5 +29,5 @@ endfunction
 
 autocmd BufEnter * :call s:showSpaces()
 
-command! ToggleShowSpaces :call ToggleShowSpaces()
+command ToggleShowSpaces :call ToggleShowSpaces()
 
