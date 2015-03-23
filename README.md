@@ -16,8 +16,8 @@ If you want to only activate it for some filetypes put it in the corresponding
 ftplugin, otherwise in your vimrc.
 
 
-The plugin also gives a ToggleShowSpaces() which toggles the highlighting when
-you call it.
+The plugin also gives a ToggleShowSpaces command which toggles the highlighting 
+when you call it.
 
 
 ## Configuration
