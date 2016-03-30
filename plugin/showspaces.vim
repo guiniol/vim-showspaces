@@ -29,9 +29,9 @@ if !exists("*ToggleShowSpaces")
 		endif
 		call s:showSpaces()
 	endfunction
+
+	command ToggleShowSpaces :call ToggleShowSpaces()
 endif
 
 autocmd BufEnter * :call s:showSpaces()
-
-command ToggleShowSpaces :call ToggleShowSpaces()
 
