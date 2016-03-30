@@ -3,29 +3,33 @@
 " so may mess up plugins using it too, this can be controlled by
 " g:showSpacesConceal.
 
-function s:showSpaces()
-	if get(b:, "showSpaces")
-		if get(b:, "showSpacesConceal")
-			set conceallevel=1
-			syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
-			hi def link Conceal ErrorMsg
+if !exists("*s:showSpaces")
+	function s:showSpaces()
+		if get(b:, "showSpaces")
+			if get(b:, "showSpacesConceal")
+				set conceallevel=1
+				syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
+				hi def link Conceal ErrorMsg
+			else
+				syn match MoreSpacesAtBeginning /^\t* \s*/
+				hi def link MoreSpacesAtBeginning ErrorMsg
+			endif
 		else
-			syn match MoreSpacesAtBeginning /^\t* \s*/
-			hi def link MoreSpacesAtBeginning ErrorMsg
+			silent! syn clear MoreSpacesAtBeginning
 		endif
-	else
-		silent! syn clear MoreSpacesAtBeginning
-	endif
-endfunction
+	endfunction
+endif
 
-function ToggleShowSpaces()
-	if get(b:, "showSpaces")
-		let b:showSpaces = 0
-	else
-		let b:showSpaces = 1
-	endif
-	call s:showSpaces()
-endfunction
+if !exists("*ToggleShowSpaces")
+	function ToggleShowSpaces()
+		if get(b:, "showSpaces")
+			let b:showSpaces = 0
+		else
+			let b:showSpaces = 1
+		endif
+		call s:showSpaces()
+	endfunction
+endif
 
 autocmd BufEnter * :call s:showSpaces()
 
