@@ -106,7 +106,7 @@ If you use the conceal mode, you want to change the Conceal group:
 
 a. What is this plugin useful for?
 
-  This plugin has been originally designed to deal with an ennoying developper
+  This plugin has been originally designed to deal with an annoying developer
   working with one of the author on a C project. He had the very bad habit to
   mix tabs and spaces to indent the code. Helping him to correct this habit
   is one use case of this plugin.
