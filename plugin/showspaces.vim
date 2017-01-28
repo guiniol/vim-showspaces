@@ -8,10 +8,18 @@ if !exists("*s:showSpaces")
 		if get(b:, "showSpaces")
 			if get(b:, "showSpacesConceal")
 				set conceallevel=1
-				syn match MoreSpacesAtBeginning /\%(^\s*\)\@<= / conceal cchar=·
+				if get(b:, "showMixedOnly")
+					syn match MoreMixedSpacesAtBeginning /\v(^\t* *(\S|$))@!(^\s*\t\s*)@=(^\s* \s*)@=\s+/ conceal cchar=·
+				else
+					syn match MoreSpacesAtBeginning /\v(^\s*)@<= / conceal cchar=·
+				endif
 				hi def link Conceal ErrorMsg
 			else
-				syn match MoreSpacesAtBeginning /^\t* \s*/
+				if get(b:, "showMixedOnly")
+					syn match MoreMixedSpacesAtBeginning /\v(^\t* *(\S|$))@!(^\s*\t\s*)@=(^\s* \s*)@=\s+/
+				else
+					syn match MoreSpacesAtBeginning /\v(^\s*)@<= /
+				endif
 				hi def link MoreSpacesAtBeginning ErrorMsg
 			endif
 		else
