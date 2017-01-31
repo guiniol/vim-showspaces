@@ -48,16 +48,31 @@ if !exists("*s:showMixedFile")
 		if get(b:, "showMixedFile")
 			if get(b:, "showMixedFileConceal")
 				set conceallevel=1
-				syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile conceal cchar=·
-				syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
+				if get(b:, "showMixedOnly")
+					syn match MoreMixedSpaces / / contained containedin=MoreMixedBeginning conceal cchar=·
+					syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile contains=MoreMixedSpaces
+					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
+				else
+					syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile conceal cchar=·
+					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
+				endif
 				hi def link Conceal ErrorMsg
 			else
-				syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile
-				syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
-				hi def link MoreMixedBeginning ErrorMsg
+				if get(b:, "showMixedOnly")
+					syn match MoreMixedSpaces / / contained containedin=MoreMixedBeginning
+					syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile contains=MoreMixedSpaces
+					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
+					hi def link MoreMixedSpaces ErrorMsg
+				else
+					syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile
+					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
+					hi def link MoreMixedBeginning ErrorMsg
+				endif
 			endif
 		else
+			silent! syn clear MoreMixedSpaces
 			silent! syn clear MoreMixedBeginning
+			silent! syn clear MoreMixedFile
 		endif
 	endfunction
 endif
