@@ -53,7 +53,7 @@ if !exists("*s:showMixedFile")
 				set conceallevel=1
 				if get(b:, "showMixedOnly")
 					syn match MoreMixedSpaces / / contained containedin=MoreMixedBeginning conceal cchar=·
-					syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile contains=MoreMixedSpaces
+					syn match MoreMixedBeginning /\v(^\t+ *(\S|$))@!\s+/ contained containedin=MoreMixedFile contains=MoreMixedSpaces
 					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
 				else
 					syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile conceal cchar=·
@@ -63,7 +63,7 @@ if !exists("*s:showMixedFile")
 			else
 				if get(b:, "showMixedOnly")
 					syn match MoreMixedSpaces / / contained containedin=MoreMixedBeginning
-					syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile contains=MoreMixedSpaces
+					syn match MoreMixedBeginning /\v(^\t+ *(\S|$))@!^\s+/ contained containedin=MoreMixedFile contains=MoreMixedSpaces
 					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
 				else
 					syn match MoreMixedSpaces /\v^\s+/ contained containedin=MoreMixedFile
