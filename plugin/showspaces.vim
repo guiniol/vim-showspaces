@@ -65,12 +65,11 @@ if !exists("*s:showMixedFile")
 					syn match MoreMixedSpaces / / contained containedin=MoreMixedBeginning
 					syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile contains=MoreMixedSpaces
 					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
-					hi def link MoreMixedSpaces ErrorMsg
 				else
-					syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile
-					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
-					hi def link MoreMixedBeginning ErrorMsg
+					syn match MoreMixedSpaces /\v^\s+/ contained containedin=MoreMixedFile
+					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedSpaces
 				endif
+				hi def link MoreMixedSpaces ErrorMsg
 			endif
 		else
 			silent! syn clear MoreMixedSpaces
