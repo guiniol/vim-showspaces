@@ -43,3 +43,37 @@ endif
 
 autocmd BufEnter * :call s:showSpaces()
 
+if !exists("*s:showMixedFile")
+	function s:showMixedFile()
+		if get(b:, "showMixedFile")
+			if get(b:, "showMixedFileConceal")
+				set conceallevel=1
+				syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile conceal cchar=·
+				syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
+				hi def link Conceal ErrorMsg
+			else
+				syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile
+				syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
+				hi def link MoreMixedBeginning ErrorMsg
+			endif
+		else
+			silent! syn clear MoreMixedBeginning
+		endif
+	endfunction
+endif
+
+if !exists("*ToggleShowMixedFile")
+	function ToggleShowMixedFile()
+		if get(b:, "showMixedFile")
+			let b:showMixedFile = 0
+		else
+			let b:showMixedFile = 1
+		endif
+		call s:showMixedFile()
+	endfunction
+
+	command ToggleShowMixedFile :call ToggleShowMixedFile()
+endif
+
+autocmd BufEnter * :call s:showMixedFile()
+
