@@ -3,52 +3,45 @@
 " so may mess up plugins using it too, this can be controlled by
 " g:showSpacesConceal.
 
-if !exists("*s:showSpaces")
+if !exists('*s:showSpaces')
 	function s:showSpaces()
-		if &expandtab
-			silent! syn clear MoreSpacesAtBeginning
-			silent! syn clear MoreMixedSpacesAtBeginning
+		if exists('w:showSpacesId')
+			call matchdelete(w:showSpacesId)
+			unlet w:showSpacesId
 			return
 		endif
-		if get(b:, "showSpaces")
-			if get(b:, "showSpacesConceal")
+		if &expandtab
+			let w:showSpacesId = matchadd(b:showSpacesHi, '\v%(^\s*)@<=\t', -1)
+		else
+			if get(b:, 'showSpacesConceal')
 				set conceallevel=1
-				if get(b:, "showMixedOnly")
-					syn match MoreSpacesAtBeginning /\v%(^\t@!\s*)@<= |%(^\s*)@<= %(\s*\t)@=/ conceal cchar=·
+				if get(b:, 'showMixedOnly')
+					let w:showSpacesId = matchadd('Conceal', '\v%(^\t@!\s*)@<= |%(^\s*)@<= %(\s*\t\s*)@=', -1, -1, {'conceal': '·'})
 				else
-					syn match MoreSpacesAtBeginning /\v(^\s*)@<= / conceal cchar=·
+					let w:showSpacesId = matchadd('Conceal', '\v%(^\s*)@<= ', -1, -1, {'conceal': '·'})
 				endif
-				hi def link Conceal ErrorMsg
+				execute "hi def link Conceal ".b:showSpacesHi
 			else
-				if get(b:, "showMixedOnly")
-					syn match MoreSpacesAtBeginning /\v%(^\t@!\s*)@<= |%(^\s*)@<= %(\s*\t)@=/
+				if get(b:, 'showMixedOnly')
+					let w:showSpacesId = matchadd(b:showSpacesHi, '\v%(^\t@!\s*)@<= |%(^\s*)@<= %(\s*\t\s*)@=', -1)
 				else
-					syn match MoreSpacesAtBeginning /\v(^\s*)@<= /
+					let w:showSpacesId = matchadd(b:showSpacesHi, '\v%(^\s*)@<= ', -1)
 				endif
-				hi def link MoreSpacesAtBeginning ErrorMsg
 			endif
-		else
-			silent! syn clear MoreSpacesAtBeginning
-			silent! syn clear MoreMixedSpacesAtBeginning
 		endif
 	endfunction
 endif
 
-if !exists("*ToggleShowSpaces")
-	function ToggleShowSpaces()
-		if get(b:, "showSpaces")
-			let b:showSpaces = 0
-		else
-			let b:showSpaces = 1
-		endif
-		call s:showSpaces()
-	endfunction
-
-	command ToggleShowSpaces :call ToggleShowSpaces()
+if !exists('*ToggleShowSpaces')
+	command ToggleShowSpaces :call s:showSpaces()
 endif
 
-if !exists("b:showMixedOnly")
+if !exists('b:showMixedOnly')
 	let b:showMixedOnly = 1
+endif
+
+if !exists('b:showSpacesHi')
+	let b:showSpacesHi = 'ErrorMsg'
 endif
 
 autocmd BufEnter * :call s:showSpaces()
