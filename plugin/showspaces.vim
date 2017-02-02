@@ -5,20 +5,23 @@
 
 if !exists("*s:showSpaces")
 	function s:showSpaces()
+		if &expandtab
+			silent! syn clear MoreSpacesAtBeginning
+			silent! syn clear MoreMixedSpacesAtBeginning
+			return
+		endif
 		if get(b:, "showSpaces")
 			if get(b:, "showSpacesConceal")
 				set conceallevel=1
 				if get(b:, "showMixedOnly")
-					syn match MoreSpacesAtBeginning / / contained containedin=MoreMixedSpacesAtBeginning conceal cchar=·
-					syn match MoreMixedSpacesAtBeginning /\v(^\t* *(\S|$))@!(^\s*\t\s*)@=(^\s* \s*)@=\s+/ contains=MoreSpacesAtBeginning
+					syn match MoreSpacesAtBeginning /\v%(^\t@!\s*)@<= |%(^\s*)@<= %(\s*\t)@=/ conceal cchar=·
 				else
 					syn match MoreSpacesAtBeginning /\v(^\s*)@<= / conceal cchar=·
 				endif
 				hi def link Conceal ErrorMsg
 			else
 				if get(b:, "showMixedOnly")
-					syn match MoreSpacesAtBeginning / / contained containedin=MoreMixedSpacesAtBeginning
-					syn match MoreMixedSpacesAtBeginning /\v(^\t* *(\S|$))@!(^\s*\t\s*)@=(^\s* \s*)@=\s+/ contains=MoreSpacesAtBeginning
+					syn match MoreSpacesAtBeginning /\v%(^\t@!\s*)@<= |%(^\s*)@<= %(\s*\t)@=/
 				else
 					syn match MoreSpacesAtBeginning /\v(^\s*)@<= /
 				endif
@@ -44,53 +47,9 @@ if !exists("*ToggleShowSpaces")
 	command ToggleShowSpaces :call ToggleShowSpaces()
 endif
 
+if !exists("b:showMixedOnly")
+	let b:showMixedOnly = 1
+endif
+
 autocmd BufEnter * :call s:showSpaces()
-
-if !exists("*s:showMixedFile")
-	function s:showMixedFile()
-		if get(b:, "showMixedFile")
-			if get(b:, "showMixedFileConceal")
-				set conceallevel=1
-				if get(b:, "showMixedOnly")
-					syn match MoreMixedSpaces / / contained containedin=MoreMixedBeginning conceal cchar=·
-					syn match MoreMixedBeginning /\v(^\t+ *(\S|$))@!\s+/ contained containedin=MoreMixedFile contains=MoreMixedSpaces
-					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
-				else
-					syn match MoreMixedBeginning /\v^\s+/ contained containedin=MoreMixedFile conceal cchar=·
-					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
-				endif
-				hi def link Conceal ErrorMsg
-			else
-				if get(b:, "showMixedOnly")
-					syn match MoreMixedSpaces / / contained containedin=MoreMixedBeginning
-					syn match MoreMixedBeginning /\v(^\t+ *(\S|$))@!^\s+/ contained containedin=MoreMixedFile contains=MoreMixedSpaces
-					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedBeginning
-				else
-					syn match MoreMixedSpaces /\v^\s+/ contained containedin=MoreMixedFile
-					syn match MoreMixedFile /\v(\_.*\_^\s*\t\s*)@=(\_.*\_^\s* \s*)@=\_.*/ contains=MoreMixedSpaces
-				endif
-				hi def link MoreMixedSpaces ErrorMsg
-			endif
-		else
-			silent! syn clear MoreMixedSpaces
-			silent! syn clear MoreMixedBeginning
-			silent! syn clear MoreMixedFile
-		endif
-	endfunction
-endif
-
-if !exists("*ToggleShowMixedFile")
-	function ToggleShowMixedFile()
-		if get(b:, "showMixedFile")
-			let b:showMixedFile = 0
-		else
-			let b:showMixedFile = 1
-		endif
-		call s:showMixedFile()
-	endfunction
-
-	command ToggleShowMixedFile :call ToggleShowMixedFile()
-endif
-
-autocmd BufEnter * :call s:showMixedFile()
 
