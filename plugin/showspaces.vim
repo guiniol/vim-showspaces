@@ -20,7 +20,7 @@ if !exists('*s:showSpaces')
 				else
 					let w:showSpacesId = matchadd('Conceal', '\v%(^\s*)@<= ', -1, -1, {'conceal': '·'})
 				endif
-				execute "hi def link Conceal ".g:showSpacesHi
+				execute "hi! def link Conceal ".g:showSpacesHi
 			else
 				if get(l:, 'showMixedOnly')
 					let w:showSpacesId = matchadd(g:showSpacesHi, '\v%(^\t@!\s*)@<= |%(^\s*)@<= %(\s*\t\s*)@=', -1)
